@@ -81,6 +81,18 @@ if ( !class_exists( 'Email_Template' ) ) {
 			$this->dir_path			= trailingslashit( plugin_dir_path( __FILE__ ) );
 			$this->dir_uri			= trailingslashit( plugin_dir_url(  __FILE__ ) );
 
+			$this->load_dependencies();
+		}
+
+		/**
+		 * Load the plugin dependencies & specific classes
+		 *
+		 * @since		1.0.0
+		 */
+		private function load_dependencies() {
+
+			$this->admin = require_once 'admin/class-email-template-admin.php';
+
 		}
 
 		/**
