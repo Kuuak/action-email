@@ -13,6 +13,8 @@ Add Email template post type.
 
 Add Email template post type.
 
+This plugin depends on ACF-Pro. Please install it first.
+
 == Installation ==
 
 1. Upload `email-template.zip` to the `/wp-content/plugins/` directory

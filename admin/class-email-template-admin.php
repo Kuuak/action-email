@@ -39,7 +39,9 @@ if ( !class_exists( 'Email_Template_admin' ) ) {
 
 		private function load_dependencies() {
 
-			$this->template_cpt = require_once 'class-email-template-cpt.php';
+			$this->cpt = require_once 'class-email-template-cpt.php';
+			$this->acf_header = require_once 'acf/email.php';
+			$this->acf_headers = require_once 'acf/advanced.php';
 		}
 
 	}
