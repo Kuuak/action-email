@@ -114,6 +114,62 @@ if ( !class_exists( 'Email_Template' ) ) {
 		public function get_version() {
 			return $this->version;
 		}
+
+		/**
+		 * Send an email according to the provided Template and Data
+		 *
+		 * @since		1.0.0
+		 * @access	static
+		 *
+		 * @param		int			$template_if	The template to use as base for the email.
+		 * @param		array		$data					The data to replace dynamic fields in the template.
+		 * @return	bool									Whether or not the email was correctly sent.
+		 */
+		static function send( $template_id, $data ) {
+
+			$template = get_post( $template_id );
+			if ( empty( $template ) ) {
+				return false;
+			}
+
+			$template = get_post( $template_id );
+
+			$templates = array(
+				'subject.twig'		=> get_field( 'subject', $template_id ),
+				'recipient.twig'	=> get_field( 'recipient', $template_id ),
+				'message.twig'		=> $template->post_content,
+			);
+
+			$tple_headers = get_field( 'headers', $template_id );
+			foreach ( $tple_headers as $key => $value) {
+				$templates[ "header_$key.twig" ] = $value['value'];
+			}
+
+			// Load Twig dependency
+			require_once 'vendor/autoload.php';
+
+			$loader = new Twig_Loader_Array($templates);
+
+			//Initialize Twig templating
+			$twig = new Twig_Environment( $loader );
+
+			// Render the fields and headers
+			$subject		= $twig->render( 'subject.twig', $data );
+			$recipient	= $twig->render( 'recipient.twig', $data );
+			$message		= $twig->render( 'message.twig', $data );
+
+			for ($i=0; $i < count($tple_headers); $i++) {
+				$headers[] = $twig->render( "header_$i.twig", $data );
+			}
+
+			// Retrieve non dynamic data and set the From header
+			$sender				= get_field( 'sender', $template_id );
+			$sender_name	= get_field( 'sender_name', $template_id );
+			$headers[] = "From: $sender_name <$sender>";
+
+			// Send email and return result
+			return wp_mail( $recipient, $subject, $message, $headers );
+		}
 	}
 }
 
