@@ -1,0 +1,21 @@
+{
+  "name": "kuuak/email-template",
+  "type": "wordpress-plugin",
+  "license": "GPL-3.0",
+  "description": "Add Email template post type.",
+  "homepage": "https://github.com/Kuuak/action-email",
+  "authors": [
+    {
+      "name": "Felipe Paul Martins"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "twig/twig": "~2.0"
+  }
+}

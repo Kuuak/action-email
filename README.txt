@@ -18,7 +18,8 @@ This plugin depends on ACF-Pro. Please install it first.
 == Installation ==
 
 1. Upload `email-template.zip` to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+2. Run `composer install` in the `/wp-content/plugins/email-template/` to install dependencies.
+3. Activate the plugin through the 'Plugins' menu in WordPress
 
 
 == Frequently Asked Questions ==
