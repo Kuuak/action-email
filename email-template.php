@@ -141,8 +141,10 @@ if ( !class_exists( 'Email_Template' ) ) {
 			);
 
 			$tple_headers = get_field( 'headers', $template_id );
-			foreach ( $tple_headers as $key => $value) {
-				$templates[ "header_$key.twig" ] = $value['value'];
+			if ( is_array($tple_headers) ) {
+				foreach ( $tple_headers as $key => $value) {
+					$templates[ "header_$key.twig" ] = $value['value'];
+				}
 			}
 
 			// Load Twig dependency
